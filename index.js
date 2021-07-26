@@ -16,6 +16,8 @@ app.use(cors(corsOptions))
 
 const getResources = () => JSON.parse(fs.readFileSync(pathToFile))
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
@@ -23,6 +25,13 @@ app.get('/', (req, res) => {
 app.get('/api/resources', (req, res) => {
   const resources = getResources()
   res.send(resources)
+})
+
+app.post('/api/resources', (req, res) => {
+  const resources = getResources()
+  console.log('Data has been recieved to POST endpoint')
+  console.log(req.body)
+  res.send('Data has been recieved')
 })
 
 app.listen(PORT, () => {
